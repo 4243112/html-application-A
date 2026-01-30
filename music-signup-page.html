@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン - LiveHub</title>
+    <title>新規登録 - LiveHub</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%238b5cf6' rx='20'/%3E%3Cpath d='M 40 70 Q 40 50 55 50 Q 70 50 70 60 Q 70 70 60 70 L 40 70' fill='white'/%3E%3Cline x1='55' y1='50' x2='55' y2='25' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='70' y1='60' x2='70' y2='30' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -53,29 +53,29 @@
             50% { transform: translate(30px, 30px); }
         }
         
-        .login-container {
-            max-width: 480px;
+        .signup-container {
+            max-width: 520px;
             width: 100%;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
         
-        .login-card {
+        .signup-card {
             background: white;
             border-radius: 25px;
             box-shadow: 0 30px 80px rgba(0,0,0,0.4);
             overflow: hidden;
         }
         
-        .login-header {
+        .signup-header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
             padding: 50px 40px;
             text-align: center;
         }
         
-        .login-icon {
+        .signup-icon {
             width: 80px;
             height: 80px;
             background: rgba(255, 255, 255, 0.2);
@@ -87,7 +87,7 @@
             font-size: 2.5rem;
         }
         
-        .login-body {
+        .signup-body {
             padding: 40px;
         }
         
@@ -96,7 +96,7 @@
             box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
         }
         
-        .btn-login {
+        .btn-signup {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
             color: white;
@@ -106,19 +106,19 @@
             transition: all 0.3s ease;
         }
         
-        .btn-login:hover {
+        .btn-signup:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
         }
         
-        .social-login-btn {
+        .social-signup-btn {
             border: 2px solid #e5e7eb;
             padding: 14px;
             transition: all 0.2s ease;
             font-weight: 600;
         }
         
-        .social-login-btn:hover {
+        .social-signup-btn:hover {
             border-color: var(--primary-color);
             background-color: rgba(139, 92, 246, 0.05);
             transform: translateY(-2px);
@@ -172,6 +172,35 @@
         .form-control {
             border-left: none;
         }
+        
+        .password-strength {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #ef4444;
+        }
+        
+        .password-strength-bar.medium {
+            width: 66%;
+            background: #f59e0b;
+        }
+        
+        .password-strength-bar.strong {
+            width: 100%;
+            background: #10b981;
+        }
     </style>
 </head>
 <body>
@@ -180,20 +209,33 @@
         <i class="bi bi-arrow-left-circle"></i> ホームに戻る
     </a>
 
-    <div class="login-container">
-        <div class="login-card">
-            <!-- ログインヘッダー -->
-            <div class="login-header">
-                <div class="login-icon">
-                    <i class="bi bi-music-note-beamed"></i>
+    <div class="signup-container">
+        <div class="signup-card">
+            <!-- サインアップヘッダー -->
+            <div class="signup-header">
+                <div class="signup-icon">
+                    <i class="bi bi-person-plus-fill"></i>
                 </div>
-                <h2 class="fw-bold mb-2">LiveHub</h2>
-                <p class="mb-0">音楽で繋がる、最高の体験を</p>
+                <h2 class="fw-bold mb-2">新規登録</h2>
+                <p class="mb-0">LiveHubで音楽の世界へ</p>
             </div>
 
-            <!-- ログインフォーム -->
-            <div class="login-body">
-                <form id="loginForm">
+            <!-- サインアップフォーム -->
+            <div class="signup-body">
+                <form id="signupForm">
+                    <!-- ユーザー名 -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label fw-bold">
+                            ユーザー名
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-person"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-lg" id="username" placeholder="山田太郎" required>
+                        </div>
+                    </div>
+
                     <!-- メールアドレス -->
                     <div class="mb-3">
                         <label for="email" class="form-label fw-bold">
@@ -218,55 +260,70 @@
                             </span>
                             <input type="password" class="form-control form-control-lg" id="password" placeholder="••••••••" required>
                         </div>
-                    </div>
-
-                    <!-- オプション -->
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="remember">
-                            <label class="form-check-label" for="remember">
-                                ログイン状態を保持
-                            </label>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="strengthBar"></div>
                         </div>
-                        <a href="music-signup-page.html" class="text-decoration-none small fw-bold" style="color: var(--primary-color);">
-                            パスワードを忘れた?
-                        </a>
                     </div>
 
-                    <!-- ログインボタン -->
-                    <button type="submit" class="btn btn-login w-100 mb-3">
-                        <i class="bi bi-box-arrow-in-right"></i> ログイン
+                    <!-- パスワード確認 -->
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label fw-bold">
+                            パスワード確認
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password" class="form-control form-control-lg" id="confirmPassword" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <!-- 利用規約に同意 -->
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            <a href="index.html" class="text-decoration-none" style="color: var(--primary-color);">利用規約</a>と
+                            <a href="index.html" class="text-decoration-none" style="color: var(--primary-color);">プライバシーポリシー</a>に同意する
+                        </label>
+                    </div>
+
+                    <!-- サインアップボタン -->
+                    <button type="submit" class="btn btn-signup w-100 mb-3">
+                        <i class="bi bi-person-check-fill"></i> 新規登録
                     </button>
 
                     <!-- アラート -->
                     <div class="alert alert-danger d-none" role="alert" id="errorAlert">
-                        <i class="bi bi-exclamation-triangle-fill"></i> メールアドレスまたはパスワードが正しくありません
+                        <i class="bi bi-exclamation-triangle-fill"></i> <span id="errorMessage"></span>
+                    </div>
+                    <div class="alert alert-success d-none" role="alert" id="successAlert">
+                        <i class="bi bi-check-circle-fill"></i> 登録完了しました！
                     </div>
                 </form>
 
-                <!-- ソーシャルログイン -->
+                <!-- ソーシャルサインアップ -->
                 <div class="divider">
                     <span>または</span>
                 </div>
 
-                <button class="btn social-login-btn w-100 mb-3">
-                    <i class="bi bi-google"></i> Googleでログイン
+                <button class="btn social-signup-btn w-100 mb-3">
+                    <i class="bi bi-google"></i> Googleで登録
                 </button>
-                <button class="btn social-login-btn w-100 mb-3">
-                    <i class="bi bi-twitter"></i> Twitterでログイン
+                <button class="btn social-signup-btn w-100 mb-3">
+                    <i class="bi bi-twitter"></i> Twitterで登録
                 </button>
-                <button class="btn social-login-btn w-100 mb-3">
-                    <i class="bi bi-spotify"></i> Spotifyでログイン
+                <button class="btn social-signup-btn w-100 mb-3">
+                    <i class="bi bi-spotify"></i> Spotifyで登録
                 </button>
-                <button class="btn social-login-btn w-100 mb-4">
-                    <i class="bi bi-apple"></i> Appleでログイン
+                <button class="btn social-signup-btn w-100 mb-4">
+                    <i class="bi bi-apple"></i> Appleで登録
                 </button>
 
-                <!-- 新規登録リンク -->
+                <!-- ログインリンク -->
                 <div class="text-center">
                     <p class="text-muted mb-0">
-                        アカウントをお持ちでない方は
-                        <a href="music-signup-page.html" class="text-decoration-none fw-bold" style="color: var(--primary-color);">新規登録</a>
+                        既にアカウントをお持ちの方は
+                        <a href="music-login-page.html" class="text-decoration-none fw-bold" style="color: var(--primary-color);">ログイン</a>
                     </p>
                 </div>
             </div>
@@ -275,8 +332,8 @@
         <!-- 追加情報 -->
         <div class="text-center mt-4 text-white">
             <p class="mb-2">
-                <a href="#" class="text-white text-decoration-none">利用規約</a> ・ 
-                <a href="#" class="text-white text-decoration-none">プライバシーポリシー</a>
+                <a href="index.html" class="text-white text-decoration-none">利用規約</a> ・ 
+                <a href="index.html" class="text-white text-decoration-none">プライバシーポリシー</a>
             </p>
             <p class="small">&copy; 2024 LiveHub. All rights reserved.</p>
         </div>
@@ -284,28 +341,69 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ログインフォーム送信時の処理
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // パスワード強度チェック
+        document.getElementById('password').addEventListener('input', function() {
+            const strength = this.value.length;
+            const bar = document.getElementById('strengthBar');
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (email && password) {
-                alert('ログイン成功！ホーム画面に遷移します。');
-                // window.location.href = 'index.html';
+            if (strength < 6) {
+                bar.className = 'password-strength-bar weak';
+            } else if (strength < 12) {
+                bar.className = 'password-strength-bar medium';
             } else {
-                document.getElementById('errorAlert').classList.remove('d-none');
+                bar.className = 'password-strength-bar strong';
             }
         });
 
-        // エラーメッセージの自動非表示
-        document.getElementById('email').addEventListener('input', function() {
-            document.getElementById('errorAlert').classList.add('d-none');
-        });
-        
-        document.getElementById('password').addEventListener('input', function() {
-            document.getElementById('errorAlert').classList.add('d-none');
+        // サインアップフォーム送信
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const terms = document.getElementById('terms').checked;
+            
+            const errorAlert = document.getElementById('errorAlert');
+            const successAlert = document.getElementById('successAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // エラーリセット
+            errorAlert.classList.add('d-none');
+            successAlert.classList.add('d-none');
+            
+            // バリデーション
+            if (!username || !email || !password || !confirmPassword) {
+                errorMessage.textContent = 'すべてのフィールドを入力してください';
+                errorAlert.classList.remove('d-none');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'パスワードが一致しません';
+                errorAlert.classList.remove('d-none');
+                return;
+            }
+            
+            if (password.length < 6) {
+                errorMessage.textContent = 'パスワードは6文字以上である必要があります';
+                errorAlert.classList.remove('d-none');
+                return;
+            }
+            
+            if (!terms) {
+                errorMessage.textContent = '利用規約に同意する必要があります';
+                errorAlert.classList.remove('d-none');
+                return;
+            }
+            
+            // 成功表示
+            successAlert.classList.remove('d-none');
+            setTimeout(() => {
+                alert('登録完了！ログイン画面に遷移します。');
+                window.location.href = 'music-login-page.html';
+            }, 2000);
         });
     </script>
 </body>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフィール編集 - LiveHub</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%238b5cf6' rx='20'/%3E%3Cpath d='M 40 70 Q 40 50 55 50 Q 70 50 70 60 Q 70 70 60 70 L 40 70' fill='white'/%3E%3Cline x1='55' y1='50' x2='55' y2='25' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='70' y1='60' x2='70' y2='30' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin: 20px auto;
+        }
+
+        .avatar-upload {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .avatar-upload input[type="file"] {
+            display: none;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .form-section-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .genre-selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .genre-btn {
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .genre-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .genre-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .preview-badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px 5px 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-music-note-beamed"></i> LiveHub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="music-festival-list.html">イベント一覧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="music-artist-list.html">アーティスト</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="music-festival-ticket.html">チケット購入</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="music-festival-myticket.html">マイチケット</a>
+                    </li>
+                </ul>
+                <button class="btn btn-light ms-3 fw-bold" onclick="window.location.href='music-login-page.html'">
+                    <i class="bi bi-person-circle"></i> プロフィール
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ページヘッダー -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="bi bi-person-fill-gear"></i> プロフィール編集
+            </h1>
+            <p class="lead">あなたの情報をカスタマイズしましょう</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row">
+            <!-- サイドバー -->
+            <div class="col-lg-3 mb-4">
+                <div class="profile-card text-center">
+                    <div class="avatar-upload">
+                        <img src="https://placehold.co/150/8b5cf6/ffffff?text=Profile" class="avatar-preview" id="avatarPreview" alt="プロフィール画像">
+                        <input type="file" id="avatarUpload" accept="image/*">
+                    </div>
+                    <h5 class="fw-bold mt-3">山田太郎</h5>
+                    <p class="text-muted">yamada@example.com</p>
+                    <hr>
+                    <div class="text-start">
+                        <p class="small text-muted mb-2"><i class="bi bi-calendar-event"></i> 2023年10月から会員</p>
+                        <p class="small text-muted mb-0"><i class="bi bi-ticket-perforated"></i> 15 チケット購入</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- メインコンテンツ -->
+            <div class="col-lg-9">
+                <!-- 基本情報 -->
+                <div class="profile-card">
+                    <h3 class="fw-bold mb-4">
+                        <i class="bi bi-person"></i> 基本情報
+                    </h3>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label fw-bold">名前</label>
+                                <input type="text" class="form-control form-control-lg" id="firstName" value="山田太郎" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="age" class="form-label fw-bold">年齢</label>
+                                <input type="number" class="form-control form-control-lg" id="age" value="28" min="13" max="120">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">メールアドレス</label>
+                            <input type="email" class="form-control form-control-lg" id="email" value="yamada@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bio" class="form-label fw-bold">自己紹介</label>
+                            <textarea class="form-control" id="bio" rows="4" placeholder="あなたの自己紹介を入力してください">音楽が大好きです。様々なジャンルのフェスに参加しています。</textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="prefecture" class="form-label fw-bold">都道府県</label>
+                                <select class="form-select form-select-lg" id="prefecture">
+                                    <option value="tokyo">東京都</option>
+                                    <option value="osaka">大阪府</option>
+                                    <option value="kanagawa">神奈川県</option>
+                                    <option value="aichi">愛知県</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="genre" class="form-label fw-bold">好きなジャンル</label>
+                                <select class="form-select form-select-lg" id="genre">
+                                    <option value="rock">ロック</option>
+                                    <option value="pop">ポップ</option>
+                                    <option value="jazz">ジャズ</option>
+                                    <option value="edm">EDM</option>
+                                    <option value="hiphop">ヒップホップ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 音楽フェス好み設定 -->
+                <div class="profile-card">
+                    <h3 class="fw-bold mb-4">
+                        <i class="bi bi-music-note-beamed"></i> 音楽フェス好み設定
+                    </h3>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">好きなジャンル（複数選択可）</label>
+                        <div class="genre-selection">
+                            <button type="button" class="genre-btn active" data-genre="rock">ロック</button>
+                            <button type="button" class="genre-btn" data-genre="pop">ポップ</button>
+                            <button type="button" class="genre-btn active" data-genre="jazz">ジャズ</button>
+                            <button type="button" class="genre-btn" data-genre="edm">EDM</button>
+                            <button type="button" class="genre-btn" data-genre="hiphop">ヒップホップ</button>
+                            <button type="button" class="genre-btn" data-genre="folk">フォーク</button>
+                            <button type="button" class="genre-btn" data-genre="classical">クラシック</button>
+                            <button type="button" class="genre-btn" data-genre="metal">メタル</button>
+                        </div>
+                        <div class="mt-3">
+                            <p class="small text-muted mb-2">選択済み:</p>
+                            <div id="selectedGenres">
+                                <span class="preview-badge"><i class="bi bi-x"></i> ロック</span>
+                                <span class="preview-badge"><i class="bi bi-x"></i> ジャズ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="priceRange" class="form-label fw-bold">予算（チケット価格帯）</label>
+                        <select class="form-select form-select-lg" id="priceRange">
+                            <option value="all">制限なし</option>
+                            <option value="under5000">〜5,000円</option>
+                            <option value="5000-10000" selected>5,000〜10,000円</option>
+                            <option value="over10000">10,000円以上</option>
+                        </select>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="notifications" checked>
+                        <label class="form-check-label" for="notifications">
+                            <strong>新しいイベント情報をメールで受け取る</strong>
+                        </label>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="recommendations" checked>
+                        <label class="form-check-label" for="recommendations">
+                            <strong>好みに合わせたおすすめイベントを受け取る</strong>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- アカウント設定 -->
+                <div class="profile-card">
+                    <h3 class="fw-bold mb-4">
+                        <i class="bi bi-lock"></i> アカウント設定
+                    </h3>
+                    <div class="mb-3">
+                        <button class="btn btn-outline-primary w-100 mb-2">
+                            <i class="bi bi-key"></i> パスワードを変更
+                        </button>
+                        <button class="btn btn-outline-danger w-100">
+                            <i class="bi bi-trash"></i> アカウントを削除
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 保存ボタン -->
+                <div class="mb-5">
+                    <button class="btn btn-primary-gradient btn-lg w-100 fw-bold">
+                        <i class="bi bi-check-circle"></i> 変更を保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-music-note-beamed"></i> LiveHub</h5>
+                    <p class="text-light">音楽で繋がる、最高の体験をあなたに。</p>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="fw-bold mb-3">サイト情報</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="index.html" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="index.html" class="text-light text-decoration-none">プライバシー</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="fw-bold mb-3">サポート</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light text-decoration-none">ヘルプ</a></li>
+                        <li><a href="index.html" class="text-light text-decoration-none">お問い合わせ</a></li>
+                        <li><a href="index.html" class="text-light text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold mb-3">フォローする</h6>
+                    <div class="d-flex gap-3">
+                        <a href="index.html" class="text-light"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="index.html" class="text-light"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="index.html" class="text-light"><i class="bi bi-youtube fs-4"></i></a>
+                        <a href="index.html" class="text-light"><i class="bi bi-spotify fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-light">
+            <p class="text-center text-light mb-0">&copy; 2024 LiveHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // アバター画像アップロード
+        document.getElementById('avatarPreview').addEventListener('click', function() {
+            document.getElementById('avatarUpload').click();
+        });
+
+        document.getElementById('avatarUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('avatarPreview').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // ジャンル選択
+        document.querySelectorAll('.genre-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
